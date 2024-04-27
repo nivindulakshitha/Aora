@@ -44,7 +44,7 @@ export default function App() {
 						resizeMode="contain"
 					/>
 
-					<View className="relative mt-5">
+					<View className="relative mt-2">
 						<Text className="text-3xl text-white font-pbold text-center">
 							Discover Endless {"\n"} Possibilities with
 							<Text className="text-secondary-200"> Aora</Text>
@@ -57,7 +57,7 @@ export default function App() {
 					</View>
 
 					<Text className="text-gray-100 text-sm font-pregular text-center mt-7">
-						Where Creativity Meets Innovation: Embark on a Journey {"\n"}of
+						Where Creativity Meets Innovation: Embark on a Journey of
 						Limitless Exploration with Aora
 					</Text>
 
