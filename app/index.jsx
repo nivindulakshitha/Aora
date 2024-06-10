@@ -6,10 +6,15 @@ import { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../constants";
 import CustomButton from "../components/buttons";
+import { useGlobalContext } from "../context/GlobalProvider";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+	const { isLoading, isAuthenticated } = useGlobalContext();
+
+	if (!isLoading && isAuthenticated) return <Redirect href="/home" />;
+
 	const [fontsLoaded, error] = useFonts({
 		"Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
 		"Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
