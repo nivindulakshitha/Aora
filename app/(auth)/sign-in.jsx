@@ -1,10 +1,10 @@
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, Alert } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
 import Form from "../../components/form";
 import CustomButton from "../../components/buttons";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { signIn } from "../../lib/appwrite";
 
 const SignIn = () => {
@@ -16,7 +16,7 @@ const SignIn = () => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const submit = async () => {
-		if (!form.email || !form.password || !form.username) {
+		if (!form.email || !form.password) {
 			Alert.alert("Please fill in all fields");
 		}
 
