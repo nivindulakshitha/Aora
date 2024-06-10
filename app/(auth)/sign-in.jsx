@@ -5,6 +5,7 @@ import { images } from "../../constants";
 import Form from "../../components/form";
 import CustomButton from "../../components/buttons";
 import { Link } from "expo-router";
+import { signIn } from "../../lib/appwrite";
 
 const SignIn = () => {
 	const [form, setForm] = useState({
@@ -14,7 +15,23 @@ const SignIn = () => {
 
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
-	const submit = () => { };
+	const submit = async () => {
+		if (!form.email || !form.password || !form.username) {
+			Alert.alert("Please fill in all fields");
+		}
+
+		setIsSubmitting(true);
+
+		try {
+			await signIn(form.email, form.password);
+			router.push("/home");
+		} catch (error) {
+			Alert.alert("Error, please try again", error.message);
+			console.log(error);
+		} finally {
+			setIsSubmitting(false);
+		}
+	};
 
 	return (
 		<SafeAreaView className="h-full bg-primary">
@@ -40,7 +57,6 @@ const SignIn = () => {
 						value={form.password}
 						handleTextChange={(e) => setForm({ ...form, password: e })}
 						otherStyles="mt-7"
-						keyboardType="password"
 					/>
 
 					<CustomButton title="Sign In" handlePress={submit} isLoading={isSubmitting}  containerStyle="mt-7" />

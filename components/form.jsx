@@ -24,7 +24,7 @@ const Form = ({
 					keyboardType={keyboardType}
 					placeholder={placeholder}
 					value={value}
-					placeholderTextColor={"7b7b8b"}
+					placeholderTextColor="#7b7b8b"
 					secureTextEntry={keyboardType === "password" && !showPassword}
 				/>
 

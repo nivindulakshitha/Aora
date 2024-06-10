@@ -1,10 +1,10 @@
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, Alert } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
 import Form from "../../components/form";
 import CustomButton from "../../components/buttons";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { createUser } from "../../lib/appwrite";
 
 const SignUp = () => {
@@ -16,9 +16,24 @@ const SignUp = () => {
 
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submit = () => {
-    createUser();
-  };
+  const submit = async () => {
+		if (!form.email || !form.password || !form.username) {
+			Alert.alert("Please fill in all fields");
+		}
+
+		setIsSubmitting(true);
+
+		try {
+      const result = await createUser(form.email, form.password, form.username);
+      console.log(result);
+			router.push("/home");
+		} catch (error) {
+      Alert.alert("Error, please try again", error.message);
+      console.log(error);
+		} finally {
+			setIsSubmitting(false);
+		}
+	};
 
 	return (
 		<SafeAreaView className="h-full bg-primary">
@@ -50,7 +65,6 @@ const SignUp = () => {
 						value={form.password}
 						handleTextChange={(e) => setForm({ ...form, password: e })}
 						otherStyles="mt-7"
-						keyboardType="password"
 					/>
 
 					<CustomButton
